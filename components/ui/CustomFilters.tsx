@@ -1,0 +1,44 @@
+import clsx from 'clsx'
+import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+
+interface FilterItem {
+    label: string
+    value: string
+}
+
+interface CustomFiltersProps {
+    filters: FilterItem[]
+    selectedFilter?: FilterItem
+    setSelectedFilter?: (filter: FilterItem) => void
+    handleFilter?: (filter: FilterItem) => void
+   
+}
+
+const CustomFilters = ({filters,selectedFilter,setSelectedFilter}:CustomFiltersProps) => {
+  return (
+    <View>
+     <FlatList
+      data={filters}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      keyExtractor={(item) => item.value}
+      renderItem={({item}) => (
+        <TouchableOpacity 
+        onPress={() => setSelectedFilter?.(item)}
+        className={clsx(
+            'flex-row items-center justify-center gap-2 bg-[#101010]  rounded-full px-4 py-2 mr-2',
+            selectedFilter?.value === item.value && 'bg-primary '
+        )}
+        >
+            <View className='flex-row items-center gap-2 '>
+                <Text className='text-white text-sm'>{item.label}</Text>
+                <Text className='text-white text-sm'>({item.value})</Text>
+            </View>
+        </TouchableOpacity>
+      )}
+    />
+    </View>
+  )
+}
+
+export default CustomFilters

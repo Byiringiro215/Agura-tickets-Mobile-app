@@ -1,75 +1,83 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+import EventCard from "@/components/events/EventCard";
+import UpcomingEventsCarousel from "@/components/events/UpcomingEventsCoursel";
+import Section from "@/components/layout/Section";
+import OrderCard from "@/components/orders/OrderCard";
+import Topbar from "@/components/ui/Topbar";
+import { events, orders } from "@/data";
+import { useEventStore } from "@/store/useEvent";
+import { router } from "expo-router";
+import { FlatList, SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
+export default function Index() {
+  const { setSelectedEvent } = useEventStore();
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView className="flex-1 bg-black px-3">
+      <Topbar />
+      <ScrollView>
+        <Section title="Upcoming Events" link="/events">
+          <UpcomingEventsCarousel />
+        </Section>
+
+        <Section title="Available Events" link="/events">
+          <View>
+            <FlatList
+              data={events}
+              renderItem={({ item, index }) => (
+                <TouchableOpacity 
+                onPress={() => {
+                  setSelectedEvent(item);
+                  console.log(item.id)
+                  router.push(`/events/${item.id}`);
+                }}>
+                  <EventCard
+                    id={item.id}
+                    title={item.title}
+                    artist={item.artist}
+                    date={item.date}
+                    location={item.location}
+                  />
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+              contentContainerStyle={{ gap: 10 }}
+              scrollEnabled={false}
+            />
+          </View>
+        </Section>
+
+        <Section title="Booked Events" link="/events">
+          <FlatList
+            data={events}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity onPress={() => {
+                setSelectedEvent(item);
+                router.push(`/events/${item.id}`);
+              }}>
+                <EventCard
+                  id={item.id}
+                  title={item.title}
+                  artist={item.artist}
+                  date={item.date}
+                  location={item.location}
+                />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={{ gap: 10 }}
+            scrollEnabled={false}
+          />
+        </Section>
+        <Section title="Orders" link="#" >
+          <FlatList
+            data={orders}
+            renderItem={({ item, index }) => (
+              <OrderCard category={item.category} quantity={item.quantity} price={item.price} order={item.order} />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={{ gap: 10 }}
+            scrollEnabled={false}
+          />
+        </Section>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
