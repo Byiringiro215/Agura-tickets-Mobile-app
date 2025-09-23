@@ -60,16 +60,18 @@ export default function TabsLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="notifications"
+
+       <Tabs.Screen
+        name="order/index"
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <View className={`items-center justify-center p-1.5 min-w-10 min-h-10 `}>
-              <MaterialIcons name="notifications-active" color={color} size={focused ? 22 : 20} />
+              <Ionicons name="fast-food-sharp" color={color} size={focused ? 22 : 20} />
             </View>
           ),
         }}
       />
+   
       <Tabs.Screen
         name="profile"
         options={{
@@ -80,6 +82,8 @@ export default function TabsLayout() {
           ),
         }}
       />
+
+      
     </Tabs>
   );
 }

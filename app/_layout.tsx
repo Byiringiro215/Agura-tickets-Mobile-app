@@ -1,10 +1,8 @@
+import { useFonts } from 'expo-font';
 import { Stack } from "expo-router";
-import { useEffect,useState } from 'react'
-import * as Font from 'expo-font'
-import * as SplashScreen from 'expo-splash-screen'
-import { Slot } from 'expo-router'
-import { useFonts } from 'expo-font'
-import "./global.css"
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
+import "./global.css";
 export default function RootLayout() {
   const [fontsLoaded, error] = useFonts({
     'Epilogue-Regular': require('../assets/fonts/Epilogue-Regular.ttf'),
@@ -17,6 +15,12 @@ export default function RootLayout() {
     if(error) throw error
     if(fontsLoaded) SplashScreen.hideAsync()
   },[fontsLoaded,error])
-if(!fontsLoaded && !error) return null
-  return <Stack screenOptions={{headerShown:false}}/>;
+// if(!fontsLoaded && !error) return null
+  return (
+    <Stack screenOptions={{headerShown:false}}>
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="(profile)" />
+      <Stack.Screen name="(auth)" />
+    </Stack>
+  );
 }

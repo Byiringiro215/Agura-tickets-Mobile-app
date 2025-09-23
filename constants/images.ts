@@ -14,6 +14,7 @@ import event6 from '../assets/images/ev6.png';
 import gradient from '../assets/images/gradient.png';
 import qrcode from '../assets/images/qrcode.png';
 import map from '../assets/images/map.png';
+import notification from '../assets/images/notification.png';
 
 export const images = {
     logo,
@@ -32,4 +33,5 @@ export const images = {
     gradient,
     qrcode,
     map,
+    notification,
 }
