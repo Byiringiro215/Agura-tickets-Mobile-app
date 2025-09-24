@@ -15,7 +15,7 @@ const CustomButton = ({ title, onPress, disabled, loading, variant = 'primary' }
      onPress={onPress} 
      disabled={disabled} 
      className={clsx(
-       'flex justify-center items-center rounded-full px-10 py-4',
+       'flex justify-center items-center rounded-full  px-10 py-4',
        variant === 'primary' ? 'bg-primary' : 'bg-white',
        disabled && 'opacity-50'
      )}

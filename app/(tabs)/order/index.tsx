@@ -16,10 +16,12 @@ const index = () => {
         data={foods}
         renderItem={({ item }) => (
           <Foodcard
+          id={item.id}
           image={item.image}
           name={item.name}
           description={item.description}
           rating={item.rating}
+        
           />
         )}
         keyExtractor={(item) => item.name ?? ""}

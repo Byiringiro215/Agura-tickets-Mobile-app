@@ -1,6 +1,5 @@
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import { Tabs } from 'expo-router';
 import { View } from 'react-native';
@@ -40,16 +39,19 @@ export default function TabsLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="events/index"
+      
+     <Tabs.Screen
+        name="order/index"
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <View className={`items-center justify-center p-1.5 min-w-10 min-h-10 `}>
-              <MaterialIcons name="emoji-events" color={color} size={focused ? 22 : 20} />
+              <Ionicons name="fast-food-sharp" color={color} size={focused ? 22 : 20} />
             </View>
           ),
         }}
       />
+
+      
       <Tabs.Screen
         name="tickets/index"
         options={{
@@ -61,12 +63,13 @@ export default function TabsLayout() {
         }}
       />
 
+  
        <Tabs.Screen
-        name="order/index"
+        name="notifications"
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <View className={`items-center justify-center p-1.5 min-w-10 min-h-10 `}>
-              <Ionicons name="fast-food-sharp" color={color} size={focused ? 22 : 20} />
+              <Ionicons name="notifications" color={color} size={focused ? 22 : 20} />
             </View>
           ),
         }}

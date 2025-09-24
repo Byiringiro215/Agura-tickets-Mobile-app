@@ -28,7 +28,7 @@ const Info=({title,value,icon}:InfoProps)=>(
 const EventScreen = () => {
   const {selectedEvent}=useEventStore();
   return (
-    <SafeAreaView className='flex-1 bg-black px3'>
+    <SafeAreaView className='flex-1 bg-black px-6'>
       <Topbar/>
       <CustomHeader  headerText={selectedEvent?.title ?? ""} />
       <ScrollView>

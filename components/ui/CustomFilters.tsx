@@ -31,7 +31,9 @@ const CustomFilters = ({
             onPress={() => setSelectedFilter?.(item)}
             className={clsx(
               "flex-row items-center justify-center gap-2 bg-[#101010]  rounded-full px-8 py-3 mr-2",
-              selectedFilter?.value === item.value && "bg-primary "
+              ((selectedFilter?.value ?? selectedFilter?.label) ===
+                (item.value ?? item.label)) &&
+                "bg-primary "
             )}
           >
             <View className="flex-row items-center gap-2 ">
